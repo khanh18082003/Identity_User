@@ -14,12 +14,13 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class UserUpdateRequest {
-    @Email(message = "INVALID_EMAIL")
-    String email;
-    @Size(min = 10, message = "SIZE_PHONE")
-    String phone;
-    String address;
-    String firstName;
-    String lastName;
-    Integer age;
+
+  @Email(message = "INVALID_EMAIL")
+  String email;
+  @Size(min = 10, message = "SIZE_PHONE")
+  String phone;
+  String address;
+  String firstName;
+  String lastName;
+  Integer age;
 }

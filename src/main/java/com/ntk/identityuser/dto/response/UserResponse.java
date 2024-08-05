@@ -14,13 +14,14 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserResponse {
-    String id;
-    String username;
-    String password;
-    String email;
-    String phone;
-    String address;
-    String firstName;
-    String lastName;
-    Integer age;
+
+  String id;
+  String username;
+  String password;
+  String email;
+  String phone;
+  String address;
+  String firstName;
+  String lastName;
+  Integer age;
 }

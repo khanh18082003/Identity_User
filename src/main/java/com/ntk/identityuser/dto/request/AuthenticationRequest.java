@@ -13,8 +13,9 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class AuthenticationRequest {
-    @NotBlank
-    String username;
-    @NotBlank
-    String password;
+
+  @NotBlank
+  String username;
+  @NotBlank
+  String password;
 }

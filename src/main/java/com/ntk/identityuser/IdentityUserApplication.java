@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 @SpringBootApplication
 public class IdentityUserApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(IdentityUserApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(IdentityUserApplication.class, args);
+  }
 
 }

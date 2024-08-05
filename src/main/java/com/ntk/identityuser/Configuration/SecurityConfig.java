@@ -17,39 +17,41 @@ import javax.crypto.spec.SecretKeySpec;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private final String[] PUBLIC_ENDPOINTS = {
-            "/api-auth/login",
-            "/api-auth/introspect",
-            "/api-users/register"
-    };
 
-    @Value("${jwt.signer-key}")
-    private String signerKey;
+  private final String[] PUBLIC_ENDPOINTS = {
+      "/api-auth/login",
+      "/api-auth/introspect",
+      "/api-users/register"
+  };
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // Configure public endpoints
-        http
-                .authorizeHttpRequests(
-                        request -> request
-                                .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
-                                .anyRequest().authenticated()
-                );
-        // Configure JWT decoder
-        http
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder())));
+  @Value("${jwt.signer-key}")
+  private String signerKey;
 
-        http.csrf(AbstractHttpConfigurer::disable); // Disable CSRF
-        return http.build();
-    }
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    // Configure public endpoints
+    http
+        .authorizeHttpRequests(
+            request -> request
+                .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
+                .anyRequest().authenticated()
+        );
+    // Configure JWT decoder
+    http
+        .oauth2ResourceServer(
+            oauth2 -> oauth2.jwt(jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder())));
 
-    @Bean
-    JwtDecoder jwtDecoder() {
-        SecretKeySpec secretKeySpec = new SecretKeySpec(signerKey.getBytes(), "HS512");
+    http.csrf(AbstractHttpConfigurer::disable); // Disable CSRF
+    return http.build();
+  }
 
-        return NimbusJwtDecoder
-                .withSecretKey(secretKeySpec)
-                .macAlgorithm(MacAlgorithm.HS512)
-                .build();
-    }
+  @Bean
+  JwtDecoder jwtDecoder() {
+    SecretKeySpec secretKeySpec = new SecretKeySpec(signerKey.getBytes(), "HS512");
+
+    return NimbusJwtDecoder
+        .withSecretKey(secretKeySpec)
+        .macAlgorithm(MacAlgorithm.HS512)
+        .build();
+  }
 }

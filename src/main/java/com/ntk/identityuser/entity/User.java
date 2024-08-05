@@ -17,15 +17,16 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    String id;
-    String username;
-    String password;
-    String email;
-    String phone;
-    String address;
-    String firstName;
-    String lastName;
-    Integer age;
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  String id;
+  String username;
+  String password;
+  String email;
+  String phone;
+  String address;
+  String firstName;
+  String lastName;
+  Integer age;
 }

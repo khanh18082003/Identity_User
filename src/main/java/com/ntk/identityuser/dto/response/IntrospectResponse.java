@@ -14,5 +14,6 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE)
 @Builder
 public class IntrospectResponse {
-    boolean valid;
+
+  boolean valid;
 }

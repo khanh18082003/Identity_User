@@ -14,7 +14,8 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL) // Ignore null fields
 public class ApiResponse<E> {
-    int status = 200;
-    String message;
-    E data;
+
+  int status = 200;
+  String message;
+  E data;
 }

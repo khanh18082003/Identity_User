@@ -16,6 +16,7 @@ import static lombok.AccessLevel.PRIVATE;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Builder
 public class AuthenticationResponse {
-    boolean authenticated;
-    String token;
+
+  boolean authenticated;
+  String token;
 }

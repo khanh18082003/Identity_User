@@ -65,4 +65,14 @@ public class UserController {
         .data(userService.getAllUsers())
         .build();
   }
+
+  @GetMapping("/my-info")
+  ApiResponse<UserResponse> getMyInfo() {
+    UserResponse user = userService.getMyInfo();
+    return ApiResponse.<UserResponse>builder()
+        .status(200)
+        .message("Success")
+        .data(user)
+        .build();
+  }
 }

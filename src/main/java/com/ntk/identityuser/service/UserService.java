@@ -5,9 +5,12 @@ import com.ntk.identityuser.dto.request.UserCreationRequest;
 import com.ntk.identityuser.dto.request.UserUpdateRequest;
 import com.ntk.identityuser.dto.response.UserResponse;
 import com.ntk.identityuser.entity.User;
+import com.ntk.identityuser.enums.Roles;
 import com.ntk.identityuser.exception.AppException;
 import com.ntk.identityuser.exception.ErrorCode;
 import com.ntk.identityuser.mapper.UserMapper;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,15 +26,22 @@ public class UserService {
 
   IUserRepository userRepository;
   UserMapper userMapper;
+  PasswordEncoder passwordEncoder;
 
   public User createUser(UserCreationRequest request) {
     if (userRepository.existsByUsername(request.getUsername())) {
       throw new AppException(ErrorCode.USERNAME_ALREADY_EXISTS);
     }
+    // Map request to user entity
     User user = userMapper.toUser(request);
-    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(
-        BCryptPasswordEncoder.BCryptVersion.$2A, 10);
+    // Encode password
+
     user.setPassword(passwordEncoder.encode(request.getPassword()));
+    // set roles
+    Set<String> roles = new HashSet<>();
+    roles.add(Roles.USER.name());
+    user.setRoles(roles);
+    // save user
     return userRepository.save(user);
   }
 

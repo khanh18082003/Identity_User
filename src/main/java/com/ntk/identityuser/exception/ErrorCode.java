@@ -13,7 +13,8 @@ public enum ErrorCode {
   UNAUTHORIZED(401, "Unauthorized"),
   SIZE_PASSWORD(400, "Password must be between 8 and 20 characters"),
   INVALID_EMAIL(400, "Invalid email"),
-  SIZE_PHONE(400, "Phone number must be at least 10 characters");
+  SIZE_PHONE(400, "Phone number must be at least 10 characters"),
+  ROLE_NOT_FOUND(404, "Role not found");
 
   private int code;
   private String message;

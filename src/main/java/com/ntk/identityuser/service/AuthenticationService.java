@@ -10,8 +10,10 @@ import com.ntk.identityuser.dto.request.AuthenticationRequest;
 import com.ntk.identityuser.dto.request.IntrospectRequest;
 import com.ntk.identityuser.dto.response.AuthenticationResponse;
 import com.ntk.identityuser.dto.response.IntrospectResponse;
+import com.ntk.identityuser.entity.User;
 import com.ntk.identityuser.exception.AppException;
 import com.ntk.identityuser.exception.ErrorCode;
+import java.util.StringJoiner;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.util.Date;
+import org.springframework.util.CollectionUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -44,9 +47,14 @@ public class AuthenticationService {
     if (!authenticated) {
       throw new AppException(ErrorCode.UNAUTHORIZED);
     }
+
+    // Get role
+    String role = user.getRoles().stream().findFirst()
+        .orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND));
+
     return AuthenticationResponse.builder()
         .authenticated(true)
-        .token(generateToken(request.getUsername()))
+        .token(generateToken(user))
         .build();
   }
 
@@ -75,7 +83,7 @@ public class AuthenticationService {
     }
   }
 
-  private String generateToken(String username) {
+  private String generateToken(User user) {
     // Generate token
 
     // Create HMAC signer
@@ -83,11 +91,11 @@ public class AuthenticationService {
 
     // Create JWT claims
     JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
-        .subject(username)
+        .subject(user.getUsername())
         .issuer("https://identityuser.com")
         .issueTime(new Date())
         .expirationTime(new Date(new Date().getTime() + 60 * 60 * 1000))
-        .claim("scope", "read write")
+        .claim("scope", buildScope(user))
         .build();
     // Create payload
     Payload payload = new Payload(claimsSet.toJSONObject());
@@ -104,5 +112,11 @@ public class AuthenticationService {
     }
   }
 
-
+  private String buildScope(User user) {
+    StringJoiner joiner = new StringJoiner(" ");
+    if (!CollectionUtils.isEmpty(user.getRoles())) {
+      user.getRoles().forEach(joiner::add);
+    }
+    return joiner.toString();
+  }
 }

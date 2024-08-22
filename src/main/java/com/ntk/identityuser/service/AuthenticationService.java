@@ -45,7 +45,7 @@ public class AuthenticationService {
     PasswordEncoder encoder = new BCryptPasswordEncoder(10);
     boolean authenticated = encoder.matches(request.getPassword(), user.getPassword());
     if (!authenticated) {
-      throw new AppException(ErrorCode.UNAUTHORIZED);
+      throw new AppException(ErrorCode.UNAUTHENTICATED);
     }
 
     // Get role

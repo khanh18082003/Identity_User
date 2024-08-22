@@ -52,8 +52,9 @@ public class SecurityConfig {
     http
         .oauth2ResourceServer(
             oauth2 -> oauth2.jwt(
-                jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder())
-                    .jwtAuthenticationConverter(jwtAuthenticationConverter())));
+                    jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder())
+                        .jwtAuthenticationConverter(jwtAuthenticationConverter()))
+                .authenticationEntryPoint(new JwtAuthenticationEntryPoint()));
 
     http.csrf(AbstractHttpConfigurer::disable); // Disable CSRF
     return http.build();

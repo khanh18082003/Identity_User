@@ -49,8 +49,8 @@ public class AuthenticationService {
     }
 
     // Get role
-    String role = user.getRoles().stream().findFirst()
-        .orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND));
+//    String role = user.getRoles().stream().findFirst()
+//        .orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND));
 
     return AuthenticationResponse.builder()
         .authenticated(true)
@@ -115,7 +115,7 @@ public class AuthenticationService {
   private String buildScope(User user) {
     StringJoiner joiner = new StringJoiner(" ");
     if (!CollectionUtils.isEmpty(user.getRoles())) {
-      user.getRoles().forEach(joiner::add);
+      //user.getRoles().forEach(joiner::add);
     }
     return joiner.toString();
   }

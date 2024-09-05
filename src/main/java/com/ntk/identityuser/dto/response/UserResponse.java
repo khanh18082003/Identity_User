@@ -1,6 +1,7 @@
 package com.ntk.identityuser.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.ntk.identityuser.entity.Role;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,5 +25,6 @@ public class UserResponse {
   String firstName;
   String lastName;
   Integer age;
-  Set<String> roles;
+
+  Set<Role> roles;
 }

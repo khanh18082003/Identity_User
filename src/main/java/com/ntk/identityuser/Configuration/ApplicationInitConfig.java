@@ -30,7 +30,7 @@ public class ApplicationInitConfig {
             .password(passwordEncoder.encode("admin"))
             .email("n21dccn134@student.ptithcm.edu.vn")
             .phone("0378277559")
-            .roles(Set.of(Roles.ADMIN.name()))
+            //.roles(Set.of(Roles.ADMIN.name()))
             .build();
         userRepository.save(user);
         log.info("Admin user created");

@@ -1,6 +1,5 @@
 package com.ntk.identityuser.Configuration;
 
-import com.ntk.identityuser.enums.Roles;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,11 +30,6 @@ public class SecurityConfig {
       "/api-users/register"
   };
 
-  private final String[] ADMIN_ENDPOINTS = {
-      "/api-users",
-      "/api-users/get/**",
-  };
-
   @Value("${jwt.signer-key}")
   private String signerKey;
 
@@ -63,7 +57,7 @@ public class SecurityConfig {
   @Bean
   JwtAuthenticationConverter jwtAuthenticationConverter() {
     JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-    jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+    jwtGrantedAuthoritiesConverter.setAuthorityPrefix("");
 
     JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
     jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);

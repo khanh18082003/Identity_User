@@ -48,10 +48,6 @@ public class AuthenticationService {
       throw new AppException(ErrorCode.UNAUTHENTICATED);
     }
 
-    // Get role
-//    String role = user.getRoles().stream().findFirst()
-//        .orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND));
-
     return AuthenticationResponse.builder()
         .authenticated(true)
         .token(generateToken(user))
@@ -115,7 +111,12 @@ public class AuthenticationService {
   private String buildScope(User user) {
     StringJoiner joiner = new StringJoiner(" ");
     if (!CollectionUtils.isEmpty(user.getRoles())) {
-      //user.getRoles().forEach(joiner::add);
+      user.getRoles().forEach(role -> {
+        joiner.add("ROLE_" + role.getName());
+        if (!CollectionUtils.isEmpty(role.getPermittions())) {
+          role.getPermittions().forEach(permittion -> joiner.add(permittion.getName()));
+        }
+      });
     }
     return joiner.toString();
   }

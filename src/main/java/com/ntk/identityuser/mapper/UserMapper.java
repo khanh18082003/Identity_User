@@ -5,6 +5,7 @@ import com.ntk.identityuser.dto.request.UserUpdateRequest;
 import com.ntk.identityuser.dto.response.UserResponse;
 import com.ntk.identityuser.entity.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
@@ -14,5 +15,6 @@ public interface UserMapper {
 
   UserResponse toUserResponse(User user);
 
+  @Mapping(target = "roles", ignore = true)
   void update(UserUpdateRequest request, @MappingTarget User user);
 }

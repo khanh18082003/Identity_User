@@ -2,6 +2,7 @@ package com.ntk.identityuser.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,4 +24,6 @@ public class UserUpdateRequest {
   String firstName;
   String lastName;
   Integer age;
+
+  List<String> roles;
 }

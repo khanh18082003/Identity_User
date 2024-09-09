@@ -3,6 +3,7 @@ package com.ntk.identityuser.entity;
 import static lombok.AccessLevel.PRIVATE;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import java.util.Set;
@@ -24,6 +25,6 @@ public class Role {
   String name;
   String description;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   Set<Permittion> permittions;
 }

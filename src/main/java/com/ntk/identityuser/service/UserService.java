@@ -4,11 +4,14 @@ import com.ntk.identityuser.dao.IUserRepository;
 import com.ntk.identityuser.dao.RoleRepository;
 import com.ntk.identityuser.dto.request.UserCreationRequest;
 import com.ntk.identityuser.dto.request.UserUpdateRequest;
+import com.ntk.identityuser.dto.response.RoleResponse;
 import com.ntk.identityuser.dto.response.UserResponse;
 import com.ntk.identityuser.entity.User;
 import com.ntk.identityuser.enums.Roles;
 import com.ntk.identityuser.exception.AppException;
 import com.ntk.identityuser.exception.ErrorCode;
+import com.ntk.identityuser.mapper.PermittionMapper;
+import com.ntk.identityuser.mapper.RoleMapper;
 import com.ntk.identityuser.mapper.UserMapper;
 import java.util.HashSet;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +32,8 @@ public class UserService {
   RoleRepository roleRepository;
   IUserRepository userRepository;
   UserMapper userMapper;
+  RoleMapper roleMapper;
+  PermittionMapper permittionMapper;
   PasswordEncoder passwordEncoder;
 
   public UserResponse createUser(UserCreationRequest request) {
@@ -43,10 +48,11 @@ public class UserService {
     // set roles
     var roles = roleRepository.findAllById(List.of(Roles.USER.name()));
     user.setRoles(new HashSet<>(roles));
-    // save user
+
     return userMapper.toUserResponse(userRepository.save(user));
   }
 
+  @PostAuthorize("returnObject.username == authentication.name")
   public UserResponse updateUser(UserUpdateRequest request, String userId) {
     User user = userRepository.findById(userId)
         .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));

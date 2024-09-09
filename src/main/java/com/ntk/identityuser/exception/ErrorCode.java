@@ -14,10 +14,12 @@ public enum ErrorCode {
   INTERNAL_SERVER_ERROR(500, "Internal server error", HttpStatus.INTERNAL_SERVER_ERROR),
   UNAUTHORIZED(403, "You do not have permittion", HttpStatus.FORBIDDEN),
   UNAUTHENTICATED(401, "Unauthenticated", HttpStatus.UNAUTHORIZED),
-  SIZE_PASSWORD(400, "Password must be between 8 and 20 characters", HttpStatus.BAD_REQUEST),
+  SIZE_PASSWORD(400, "Password must be between {min} and {max} characters", HttpStatus.BAD_REQUEST),
   INVALID_EMAIL(400, "Invalid email", HttpStatus.BAD_REQUEST),
-  SIZE_PHONE(400, "Phone number must be at least 10 characters", HttpStatus.BAD_REQUEST),
-  ROLE_NOT_FOUND(404, "Role not found", HttpStatus.NOT_FOUND);
+  SIZE_PHONE(400, "Phone number must be at least {min} characters", HttpStatus.BAD_REQUEST),
+  ROLE_NOT_FOUND(404, "Role not found", HttpStatus.NOT_FOUND),
+  INVALID_DATE_OF_BIRTH(400, "Your age must be at least {min}", HttpStatus.BAD_REQUEST),
+  ;
 
   private int code;
   private String message;

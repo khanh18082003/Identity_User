@@ -1,5 +1,6 @@
 package com.ntk.identityuser.dto.request;
 
+import com.ntk.identityuser.validator.DobConstrainst;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import java.util.List;
@@ -23,6 +24,7 @@ public class UserUpdateRequest {
   String address;
   String firstName;
   String lastName;
+  @DobConstrainst(min = 18, message = "INVALID_DATE_OF_BIRTH")
   Integer age;
 
   List<String> roles;

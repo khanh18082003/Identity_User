@@ -5,6 +5,7 @@ import com.ntk.identityuser.dao.RoleRepository;
 import com.ntk.identityuser.dto.request.RoleRequest;
 import com.ntk.identityuser.dto.response.RoleResponse;
 import com.ntk.identityuser.entity.Role;
+import com.ntk.identityuser.mapper.PermittionMapper;
 import com.ntk.identityuser.mapper.RoleMapper;
 import java.util.HashSet;
 import java.util.List;

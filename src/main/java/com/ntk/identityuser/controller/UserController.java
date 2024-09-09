@@ -8,18 +8,17 @@ import com.ntk.identityuser.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api-users")
 @RequiredArgsConstructor
+@Slf4j
 @FieldDefaults(makeFinal = true, level = lombok.AccessLevel.PRIVATE)
 public class UserController {
 
-  private static final Logger log = LoggerFactory.getLogger(UserController.class);
   UserService userService;
 
   @PostMapping("/register")
@@ -34,7 +33,7 @@ public class UserController {
 
   @PutMapping("/update/{userId}")
   ApiResponse<UserResponse> updateUser(@RequestBody @Valid UserUpdateRequest request,
-      @PathVariable String userId) {
+      @PathVariable("userId") String userId) {
     UserResponse user = userService.updateUser(request, userId);
     return ApiResponse.<UserResponse>builder()
         .message("User updated successfully")

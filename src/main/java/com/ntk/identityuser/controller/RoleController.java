@@ -5,10 +5,12 @@ import com.ntk.identityuser.dto.response.ApiResponse;
 import com.ntk.identityuser.dto.response.RoleResponse;
 import com.ntk.identityuser.service.RoleService;
 import java.util.List;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/roles")
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = lombok.AccessLevel.PRIVATE)
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class RoleController {
 
   RoleService roleService;
@@ -41,11 +43,11 @@ public class RoleController {
         .build();
   }
 
-  @DeleteMapping("/delete")
-  ApiResponse deleteRole(String name) {
+  @DeleteMapping("/delete/{name}")
+  ApiResponse deleteRole(@PathVariable("name") String name) {
     roleService.delete(name);
     return ApiResponse.builder()
-        .message("Role " + name + "deleted successfully")
+        .message("Role " + name + " deleted successfully")
         .build();
   }
 }

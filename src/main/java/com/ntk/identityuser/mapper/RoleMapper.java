@@ -11,6 +11,6 @@ public interface RoleMapper {
 
   @Mapping(target = "permittions", ignore = true)
   Role toRole(RoleRequest roleRequest);
-
+  
   RoleResponse toRoleResponse(Role role);
 }
